@@ -6,14 +6,20 @@ _SESSION_FILE = os.path.join(os.path.dirname(__file__), "..", ".session.json")
 
 
 def session_kaydet(kullanici):
-    data = {"id": kullanici["id"], "kullanici_adi": kullanici["kullanici_adi"]}
-    with open(_SESSION_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f)
+    try:
+        data = {"id": kullanici["id"], "kullanici_adi": kullanici["kullanici_adi"]}
+        with open(_SESSION_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f)
+    except Exception:
+        pass
 
 
 def session_sil():
-    if os.path.exists(_SESSION_FILE):
-        os.remove(_SESSION_FILE)
+    try:
+        if os.path.exists(_SESSION_FILE):
+            os.remove(_SESSION_FILE)
+    except Exception:
+        pass
 
 
 def auto_login():

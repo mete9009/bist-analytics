@@ -7,6 +7,13 @@ import streamlit as st
 CONFIG_DOSYA = os.path.join(os.path.dirname(__file__), "..", "db_config.json")
 
 def config_oku():
+    try:
+        s = st.secrets.get("database", {})
+        if s.get("host"):
+            return {"host": s["host"], "user": s["user"],
+                    "password": s["password"], "database": s["database"]}
+    except Exception:
+        pass
     if os.path.exists(CONFIG_DOSYA):
         with open(CONFIG_DOSYA, "r") as f:
             return json.load(f)
